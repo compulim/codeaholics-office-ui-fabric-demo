@@ -75,12 +75,6 @@
             "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
           ],
           "properties": {
-            "appSettings": [
-              {
-                "name": "BUNDLER",
-                "value": "webpack"
-              }
-            ],
             "virtualApplications": [
               {
                 "virtualPath": "/",
@@ -90,6 +84,17 @@
               }
             ],
             "use32BitWorkerProcess": false
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "type": "appsettings",
+          "name": "web",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', parameters('siteName'))]"
+          ],
+          "properties": {
+            "BUNDLER": "webpack"
           }
         },
         {
