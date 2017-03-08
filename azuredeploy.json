@@ -94,7 +94,8 @@
             "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
           ],
           "properties": {
-            "BUNDLER": "webpack"
+            "BUNDLER": "webpack",
+            "WEBSITE_NODE_DEFAULT_VERSION": "6.9.1"
           }
         },
         {
