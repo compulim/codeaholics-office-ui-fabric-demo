@@ -68,19 +68,13 @@
       },
       "resources": [
         {
-          "apiVersion": "2014-04-01",
+          "apiVersion": "2014-06-01",
           "type": "config",
           "name": "web",
           "dependsOn": [
             "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
           ],
           "properties": {
-            "appSettings": [
-              {
-                "name": "BUNDLER",
-                "value": "webpack"
-              }
-            ],
             "virtualApplications": [
               {
                 "virtualPath": "/",
@@ -90,6 +84,17 @@
               }
             ],
             "use32BitWorkerProcess": false
+          }
+        },
+        {
+          "apiVersion": "2014-11-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ],
+          "properties": {
+            "BUNDLER": "webpack"
           }
         },
         {
