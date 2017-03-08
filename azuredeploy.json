@@ -51,43 +51,40 @@
       }
     },
     {
-      "apiVersion": "2014-06-01",
+      "apiVersion": "2015-08-01",
       "name": "[parameters('siteName')]",
       "type": "Microsoft.Web/sites",
       "location": "[parameters('siteLocation')]",
       "dependsOn": [
-        "[concat('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]"
+        "[resourceId('Microsoft.Web/serverFarms', parameters('hostingPlanName'))]"
       ],
       "tags": {
         "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
       },
       "properties": {
-        "name": "[parameters('siteName')]",
-        "serverFarm": "[parameters('hostingPlanName')]",
-        "clientAffinityEnabled": "false"
+        "serverFarmId": "[parameters('hostingPlanName')]",
+        "clientAffinityEnabled": false
       },
       "resources": [
         {
-          "apiVersion": "2014-06-01",
+          "apiVersion": "2015-08-01",
           "type": "config",
           "name": "web",
           "dependsOn": [
-            "[concat('Microsoft.Web/Sites/', parameters('siteName'))]"
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
           ],
           "properties": {
             "virtualApplications": [
               {
                 "virtualPath": "/",
-                "physicalPath": "site\\wwwroot\\dist\\website",
-                "preloadEnabled": false,
-                "virtualDirectories": null
+                "physicalPath": "site\\wwwroot\\dist\\website"
               }
             ],
             "use32BitWorkerProcess": false
           }
         },
         {
-          "apiVersion": "2014-11-01",
+          "apiVersion": "2015-08-01",
           "type": "config",
           "name": "appsettings",
           "dependsOn": [
